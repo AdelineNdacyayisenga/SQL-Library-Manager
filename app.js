@@ -42,8 +42,8 @@ app.use((req, res, next) => {
   error.status = 404;
   error.message = "Sorry! We couldn't find the page you were looking for.";
   //next(createError(404));
-  //next(error);
-  res.render('page-not-found', { error });
+  next(error);
+  //res.render('page-not-found', { error });
 });
 
 // error handler
@@ -52,15 +52,14 @@ app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  if (err.status !== 404) {
-    err.status = 500;
-    res.locals.message = "Server Error"
-    res.render('error');
-    console.log(err.status);
-    console.log(err.message);
-  } 
+  if(err.status === 404) {
+    console.log('404 error: Page Not Found');
+    res.status(404).render('page-not-found', { title: 'Page Not Found'});
+  } else {
+    console.log("500 error: Server error");
+    err.status = err.status || 500;
+    res.status(err.status).render('error', { title: 'Server Error'});
+  }
 });
 
 module.exports = app;

@@ -2,7 +2,7 @@ extends layout
 
 block content 
     h1= title 
-    form(action="/books/" + book.id + "/edit", method="get")
+    form(action="/books/" + book.id, method="post")
         include form
         p 
             input(type="submit" value=`${title}`)
