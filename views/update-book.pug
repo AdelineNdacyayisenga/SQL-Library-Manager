@@ -2,6 +2,7 @@ extends layout
 
 block content 
     h1= title 
+    include form-error
     form(action="/books/" + book.id, method="post")
         include form
         p 
@@ -9,4 +10,5 @@ block content
         p 
             a.button(href="/books") Cancel
         p 
-            input(type="submit" value="Delete Book")
+    form(action=`/books/${book.id}/delete`, method="post", onsubmit=`return confirm('Do you really want to delete this book?')`)
+        input(type="submit", value = "Delete Book")

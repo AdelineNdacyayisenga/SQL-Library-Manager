@@ -1,18 +1,18 @@
 div
     label(for="title") Title
-    input(name="title", type="text", id="title")
+    input(name="title", type="text", id="title", book ? value=book.title : null)
 br
 div
     label(for="author") Author
-    input(name="author", type="text", id="author")
+    input(name="author", type="text", id="author", book ? value=book.author : null)
 br
 div
     label(for="genre") Genre
-    input(name="genre", type="text", id="genre")
+    input(name="genre", type="text", id="genre", book ? value=book.genre : null)
 br
 div
     label(for="year") Year
-    input(name="year", type="text", id="year")
+    input(name="year", type="text", id="year", book ? value=book.year : null)
 
 
 
