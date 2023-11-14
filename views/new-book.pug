@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+    h2= title 
+    form(action="/books", method="post")
+        include form
+    div 
+        input(type="submit" value=`Create ${title}`)
+    div 
+        a.button(href="/books") Cancel
