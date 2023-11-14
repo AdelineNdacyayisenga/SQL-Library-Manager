@@ -50,6 +50,9 @@ router.get("/:id", asyncHandler(async (req, res) => {
     res.render("show", { book, title: book.title });
   } else {
     res.sendStatus(404);
+    // const err = new Error('Book not found');
+    // err.status = 404;
+    // throw err;
   }
 
 }));
@@ -60,7 +63,9 @@ router.get('/:id/edit', asyncHandler(async(req, res, next) => {
   if(book) {
     res.render("update-book", { book, title: "Update Book" });
   } else {
-    res.sendStatus(404);
+    const err = new Error('Book not found');
+    err.status = 404;
+    throw err;
   }
 }));
 
@@ -73,7 +78,9 @@ router.post('/:id/edit', asyncHandler(async (req, res) => {
       await book.update(req.body);// Check if not 'book'
       res.redirect("/books/" + book.id);
     } else {
-      res.sendStatus(404);
+      const err = new Error('Book not found');
+      err.status = 404;
+      res.status(404).render('page-not-found', { err });
     }
   } catch(error) {
     if(error.name === 'SequelizeValidationError'){
